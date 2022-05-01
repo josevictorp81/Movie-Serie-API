@@ -11,7 +11,7 @@ API que provê um serviço de filmes e series, onde apresenta os seguintes dados
 
 /api/movies/{id} - Lista um filme pelo id.
 
-/api/movies/?name=nome do filme - Retorna uma lista com todos os filmes que contenham em seu nome o nome passado na query `name`.
+/api/movies/?name=nome do filme - Retorna uma lista com todos os filmes que contenham em seu nome o nome passado na query *name*.
 ```
 
 ```
@@ -19,7 +19,7 @@ API que provê um serviço de filmes e series, onde apresenta os seguintes dados
 
 /api/series/{id} - Lista uma série pelo id.
 
-/api/series/?name=nome da serie - Retorna uma lista com todos as séries que contenham em seu nome o nome passado na query `name`.
+/api/series/?name=nome da serie - Retorna uma lista com todos as séries que contenham em seu nome o nome passado na query *name*.
 ```
 
 ## Executando a aplicação
