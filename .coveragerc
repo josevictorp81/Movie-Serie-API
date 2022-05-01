@@ -1,0 +1,11 @@
+[run]
+source = .
+
+omit =
+    */venv/*
+    */movie/*
+    */tests/*
+    */migrations/*
+    */__init__.py
+    */apps.py
+    */manage.py
