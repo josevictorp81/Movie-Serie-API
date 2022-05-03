@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.serializers import ValidationError
 
 from core.models import Genre, Movie
-from core.serializers import MovieSerializer
+from core.serializers import MovieSerializer, ReadMovieSerializer
 
 MOVIE_URL = reverse('movie-list')
 
@@ -52,7 +52,7 @@ class MovieTests(APITestCase):
         res = self.client.get(MOVIE_URL)
 
         movie = Movie.objects.all()
-        serializer = MovieSerializer(movie, many=True)
+        serializer = ReadMovieSerializer(movie, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
@@ -69,7 +69,7 @@ class MovieTests(APITestCase):
         res = self.client.get(MOVIE_URL, {'name': 'movie'})
 
         movies = Movie.objects.filter(name__icontains='movie')
-        serializer = MovieSerializer(movies, many=True)
+        serializer = ReadMovieSerializer(movies, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
@@ -81,7 +81,7 @@ class MovieTests(APITestCase):
 
         url = detail_url(movie.id)
         res = self.client.get(url)
-        serializer = MovieSerializer(movie)
+        serializer = ReadMovieSerializer(movie)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)

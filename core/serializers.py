@@ -29,6 +29,15 @@ class MovieSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
 
+class ReadMovieSerializer(serializers.ModelSerializer):
+    genre = GenreSerializer(many=True)
+    
+    class Meta:
+        model = Movie
+        fields = ['id', 'name', 'overview', 'imdb_score', 'data_launch', 'genre', 'image']
+        read_only_fields = fields
+
+
 class SerieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Serie
@@ -40,4 +49,13 @@ class SerieSerializer(serializers.ModelSerializer):
         if serie:
             raise serializers.ValidationError(detail='Serie with that name already exists!')
         return super().validate(attrs)
+
+
+class ReadSerieSerializer(serializers.ModelSerializer):
+    genre = GenreSerializer(many=True)
+
+    class Meta:
+        model = Serie
+        fields = ['id', 'name', 'overview', 'imdb_score', 'data_launch', 'genre', 'image', 'seasons']
+        read_only_fields = ['id']
     

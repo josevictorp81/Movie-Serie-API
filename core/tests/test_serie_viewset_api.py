@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.serializers import ValidationError
 
 from core.models import Genre, Serie
-from core.serializers import SerieSerializer
+from core.serializers import SerieSerializer, ReadSerieSerializer
 
 SERIE_URL = reverse('serie-list')
 
@@ -52,7 +52,7 @@ class SerieTest(APITestCase):
         res = self.client.get(SERIE_URL)
 
         series = Serie.objects.all()
-        serializer = SerieSerializer(series ,many=True)
+        serializer = ReadSerieSerializer(series ,many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
@@ -69,7 +69,7 @@ class SerieTest(APITestCase):
         res = self.client.get(SERIE_URL, {'name': 'serie'})
 
         series = Serie.objects.filter(name__icontains='serie')
-        serializer = SerieSerializer(series, many=True)
+        serializer = ReadSerieSerializer(series, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), len(serializer.data))
@@ -81,7 +81,7 @@ class SerieTest(APITestCase):
 
         url = detail_url(serie.id)
         res = self.client.get(url)
-        serializer = SerieSerializer(serie)
+        serializer = ReadSerieSerializer(serie)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)

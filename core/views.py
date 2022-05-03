@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Genre, Movie, Serie
-from .serializers import GenreSerializer, MovieSerializer, SerieSerializer
+from .serializers import GenreSerializer, MovieSerializer, SerieSerializer, ReadMovieSerializer, ReadSerieSerializer
 
 
 class GenreViewSet(ListModelMixin, CreateModelMixin, viewsets.GenericViewSet):
@@ -20,9 +20,14 @@ class MovieViewSet(ListModelMixin, CreateModelMixin, RetrieveModelMixin, viewset
         name = request.query_params.get('name', None)
         if name is not None:
             queryset = self.queryset.filter(name__icontains=name)
-            serializer = self.serializer_class(queryset, many=True)
+            serializer = ReadMovieSerializer(queryset, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         return super().list(request, *args, **kwargs)
+    
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return ReadMovieSerializer
+        return self.serializer_class
 
 
 class SerieViewSet(ListModelMixin ,CreateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
@@ -33,6 +38,11 @@ class SerieViewSet(ListModelMixin ,CreateModelMixin, RetrieveModelMixin, viewset
         name = request.query_params.get('name', None)
         if name is not None:
             queryset = self.queryset.filter(name__icontains=name)
-            serializer = self.serializer_class(queryset, many=True)
+            serializer = ReadSerieSerializer(queryset, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         return super().list(request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return ReadSerieSerializer
+        return self.serializer_class
