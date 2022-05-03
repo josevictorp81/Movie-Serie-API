@@ -31,17 +31,17 @@ source /venv/bin/activate (linux)
 ```
 - Instale as dependências
 ```
-pip install -r requirements
+pip install -r requirements.txt
 ```
 - Execute as migrations para o banco de dados
 ```
 python manage.py migrate
 ```
-- Caso queira, execute os testes.
+- Executar os testes.
 ```
 python manage.py test
 ```
-- Caso também queira ver a cobertura dos testes, instale a seguinte biblioteca e execute o comando.
+- Caso também deseje ver a cobertura dos testes, instale a seguinte biblioteca e execute os comandos.
 ```
 pip install coverage
 coverage run manage.py test
